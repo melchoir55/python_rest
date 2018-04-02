@@ -1,0 +1,20 @@
+version: "3.0"
+services:
+
+  postgres:
+    image: postgres
+    expose:
+     - "5432"
+    environment:
+     - POSTGRES_USER=a_user
+     - POSTGRES_PASSWORD=a_password
+     - POSTGRES_DB=test
+  python_rest:
+    build: .
+    environment:
+      - FLASK_APP=application.py
+      - ENVIRONMENT=test
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
